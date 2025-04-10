@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Settings from '../svg/Settings.vue';
+import Settings from '../components/svg/Settings.vue';
 
 </script>
 

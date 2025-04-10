@@ -2,7 +2,7 @@
 import { RouterView } from 'vue-router';
 import Logo from './components/svg/Logo.vue';
 import TopMenu from './components/TopMenu.vue';
-import Navigation from './components/Layouts/Navigation.vue';
+import Navigation from '@/Layouts/Navigation.vue';
 
 </script>
 
