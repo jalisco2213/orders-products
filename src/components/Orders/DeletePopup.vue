@@ -1,19 +1,31 @@
 <script setup>
 import Trash from "@/components/svg/Trash.vue";
 
-defineProps(['orderName']);
+
+defineProps({
+  itemName: String,
+  itemImage: String,
+  itemSerial: String
+});
+
 const emit = defineEmits(['cancel', 'confirm']);
 </script>
 
 <template>
   <div class="delete-popup">
-    <div class="delete-popup__overlay">
-      <div class="delete-popup__content">
+    <div class="delete-popup__overlay ">
+      <div class="delete-popup__content animation-modal">
         <h3 class="delete-popup__title">Вы уверены, что хотите удалить этот приход?</h3>
-        <div class="delete-popup__divider"></div>
+        <div class="line"></div>
 
-        <div class="delete-popup__order">
-          <p class="delete-popup__order-name">{{ orderName }}</p>
+        <div class="delete-popup__item">
+          <div class="delete-popup__item-image">
+            <img :src="itemImage" alt="Изображение продукта" style="width: 50px; height: 50px; object-fit: contain;">
+          </div>
+          <div class="delete-popup__item-info">
+            <p class="delete-popup__item-name">{{ itemName }}</p>
+            <p class="delete-popup__item-serial">Серийный номер: {{ itemSerial }}</p>
+          </div>
         </div>
 
         <div class="delete-popup__actions">
@@ -68,12 +80,6 @@ const emit = defineEmits(['cancel', 'confirm']);
     font-weight: bold;
     margin-bottom: 16px;
     color: #333;
-  }
-
-  &__divider {
-    height: 1px;
-    background-color: #e8e8e8;
-    margin: 16px 0;
   }
 
   &__order {
@@ -144,4 +150,30 @@ const emit = defineEmits(['cancel', 'confirm']);
     flex: 1;
   }
 }
+
+.delete-popup__item {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.delete-popup__item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.delete-popup__item-name {
+  font-weight: bold;
+  margin: 0;
+}
+
+.delete-popup__item-serial {
+  margin: 0;
+  font-size: 0.9em;
+  color: #666;
+}
+
 </style>

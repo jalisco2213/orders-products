@@ -1,6 +1,7 @@
 <script setup>
 import List from "@/components/svg/List.vue";
 import Trash from "@/components/svg/Trash.vue";
+import ArrowRight from "@/components/svg/ArrowRight.vue";
 
 const {orders, selectedOrder, isDetailsOpen} = defineProps({
   orders: {
@@ -49,30 +50,31 @@ function handleDelete(order, event) {
           :key="order.id"
           :class="{ 'active': selectedOrder?.id === order.id }"
       >
-        <td v-if="!isDetailsOpen">
+        <td v-if="!isDetailsOpen" class="name-cell">
           <div class="name">{{ order.name }}</div>
         </td>
 
-        <td>
-          <div @click="emit('select-order', order)" class="list">
+        <td @click="emit('select-order', order)" class="list-cell">
+          <div class="list">
             <List/>
           </div>
         </td>
 
-        <td class="product">
-          <p>
+        <td class="product-cell">
+          <p class="product-count">
             {{ order.products.length }}
           </p>
-          <span>Продукта</span>
+          <span class="product-label">Продукта</span>
         </td>
 
-        <td style="text-align: center">
-          <div class="date">{{ formatTime(order.date) }}</div>
-          <div>{{ formatDate(order.date) }}</div>
+        <td class="date-cell">
+          <div class="time">{{ formatTime(order.date) }}</div>
+          <div class="date">{{ formatDate(order.date) }}</div>
+          <ArrowRight class="arrow-right" v-if="selectedOrder?.id === order.id"/>
         </td>
 
-        <td v-if="!isDetailsOpen">
-          <Trash @click.stop="handleDelete(order, $event)" style="cursor: pointer"/>
+        <td v-if="!isDetailsOpen" class="action-cell">
+          <Trash style="cursor: pointer"/>
         </td>
       </tr>
       </tbody>
@@ -86,38 +88,68 @@ function handleDelete(order, event) {
   border-collapse: collapse;
 }
 
+.orders-list {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 .orders-table {
   cursor: default;
   color: #4f4f4f;
+  min-width: 300px;
+  width: 100%;
 
   td {
-    padding: 10px;
+    background: #fff;
+    padding: 8px 12px;
+    position: relative;
+  }
+
+  .time {
+    font-size: 12px;
+    font-weight: 100;
+    white-space: nowrap;
   }
 
   .date {
-    font-size: 12px;
-    font-weight: 100;
+    white-space: nowrap;
   }
 
   .list {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     border: 1px solid #ccc;
+    position: relative;
     cursor: pointer;
+    transition: .5s ease-in-out;
+
+    &:hover {
+      background: #ddd;
+      transition: .5s ease-in-out;
+    }
   }
 
-  .product {
-    p {
-      font-weight: 500;
-    }
+  .arrow-right {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #4f4f4f;
+  }
 
-    span {
-      font-weight: 100;
-    }
+  .product-count {
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .product-label {
+    font-weight: 100;
+    font-size: 0.8em;
   }
 
   tr {
@@ -135,7 +167,66 @@ function handleDelete(order, event) {
 
   .name {
     text-decoration: underline;
-    font-size: 20px;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: auto;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 768px) {
+  .orders-table {
+    td {
+      padding: 6px 8px;
+    }
+
+    .name {
+      font-size: 14px;
+      max-width: 100px;
+    }
+
+    .list {
+      width: 28px;
+      height: 28px;
+    }
+
+    .product-count {
+      font-size: 14px;
+    }
+
+    .product-label {
+      font-size: 0.7em;
+    }
+
+    .time, .date {
+      font-size: 11px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .orders-table {
+    td {
+      padding: 4px 6px;
+    }
+
+    .name {
+      font-size: 12px;
+      max-width: 80px;
+    }
+
+    .list {
+      width: 24px;
+      height: 24px;
+    }
+
+    .product-cell {
+      display: none; /* Скрываем количество продуктов на очень маленьких экранах */
+    }
+
+    .time, .date {
+      font-size: 10px;
+    }
   }
 }
 </style>

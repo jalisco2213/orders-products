@@ -1,31 +1,32 @@
 <script setup>
-defineProps(['order']);
-const emit = defineEmits(['close', 'delete-order']);
+import Trash from "@/components/svg/Trash.vue";
+import DeletePopup from "@/components/Orders/DeletePopup.vue";
+import {ref} from 'vue';
 
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('ru-RU', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
+const props = defineProps(['order']);
+const emit = defineEmits(['close', 'delete-product']);
+
+const localProducts = ref([...props.order.products]);
+const showDeletePopup = ref(false);
+const productToDelete = ref(null);
+
+const confirmDeleteProduct = (product) => {
+  productToDelete.value = product;
+  showDeletePopup.value = true;
 };
 
-const formatDateAlt = (dateString) => {
-  const date = new Date(dateString);
-  const day = date.getDate().toString().padStart(2, '0');
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const year = date.getFullYear();
-  return `${day}.${month}.${year}`;
+const cancelDelete = () => {
+  showDeletePopup.value = false;
+  productToDelete.value = null;
 };
 
-const calculateTotal = (products, currency) => {
-  return products.reduce((sum, product) => {
-    const price = product.price.find(p => p.symbol === currency);
-    return sum + (price ? price.value : 0);
-  }, 0);
+const confirmDelete = () => {
+  if (productToDelete.value) {
+    localProducts.value = localProducts.value.filter(product => product.id !== productToDelete.value.id);
+    emit('delete-product', productToDelete.value.id);
+    showDeletePopup.value = false;
+    productToDelete.value = null;
+  }
 };
 </script>
 
@@ -35,39 +36,54 @@ const calculateTotal = (products, currency) => {
 
     <h2>{{ order.name }}</h2>
 
-    <div class="order-info">
-      <div class="info-row">
-        <span class="label">Количество продуктов:</span>
-        <span>{{ order.products.length }}</span>
-      </div>
+    <div class="line"></div>
 
-      <div class="info-row">
-        <span class="label">Дата создания:</span>
-        <span>{{ formatDate(order.date) }}</span>
-      </div>
+    <div class="products-list">
+      <div v-for="product in localProducts" :key="product.id" class="product-item">
+        <div style="display: flex; align-items: center; gap: 10px; justify-content: space-between">
+          <div class="product-img">
+            <img style="width: 50px" src="/monitor.png" alt="">
+          </div>
 
-      <div class="info-row">
-        <span class="label">Дата создания (альтернативный формат):</span>
-        <span>{{ formatDateAlt(order.date) }}</span>
-      </div>
+          <div class="product-info">
+            <div class="product-title">{{ product.title }}</div>
+            <div class="product-serial">Серийный номер: {{ product.serialNumber }}</div>
+            <div class="product-price">
+              Цена:
+              <span v-for="(price, index) in product.price" :key="index">
+                {{ price.value }}{{ price.symbol }}
+                <span v-if="index < product.price.length - 1"> / </span>
+              </span>
+            </div>
+            <div class="product-guarantee">
+              Гарантия: {{ product.guarantee.start }} - {{ product.guarantee.end }}
+            </div>
+          </div>
 
-      <div class="info-row">
-        <span class="label">Сумма прихода:</span>
-        <span>{{ calculateTotal(order.products, 'USD') }} USD /
-          {{ calculateTotal(order.products, 'UAH') }} UAH</span>
+          <div class="product-remove" @click="confirmDeleteProduct(product)">
+            <Trash/>
+          </div>
+        </div>
       </div>
     </div>
 
-    <button class="delete-btn" @click="$emit('delete-order')">Удалить приход</button>
+    <DeletePopup
+        v-if="showDeletePopup"
+        :itemName="productToDelete?.title"
+        :itemImage="'/monitor.png'"
+        :itemSerial="productToDelete?.serialNumber"
+        @cancel="cancelDelete"
+        @confirm="confirmDelete"
+    />
   </div>
 </template>
 
 <style scoped>
 .order-details {
-  flex: 1;
+  width: 100%;
+  background: #fff;
   padding: 20px;
   position: relative;
-  overflow-y: auto;
 }
 
 .close-btn {
@@ -85,32 +101,34 @@ const calculateTotal = (products, currency) => {
   color: #333;
 }
 
-.order-info {
+.products-list {
   margin-top: 20px;
 }
 
-.info-row {
+.product-item {
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 5px;
   margin-bottom: 10px;
-  display: flex;
 }
 
-.label {
+.product-title {
   font-weight: bold;
-  margin-right: 10px;
-  min-width: 250px;
+  margin-bottom: 5px;
 }
 
-.delete-btn {
-  margin-top: 20px;
-  padding: 8px 16px;
-  background-color: #ff4444;
-  color: white;
-  border: none;
-  border-radius: 4px;
+.product-serial, .product-price, .product-guarantee {
+  margin-bottom: 3px;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.product-remove {
   cursor: pointer;
+  padding: 5px;
 }
 
-.delete-btn:hover {
-  background-color: #cc0000;
+.product-remove:hover {
+  opacity: 0.7;
 }
 </style>

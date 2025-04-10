@@ -20,15 +20,16 @@ const closeDetails = () => {
   isDetailsOpen.value = false;
 };
 
-const deleteOrder = () => {
-  if (selectedOrder.value) {
-    const index = ordersList.findIndex(o => o.id === selectedOrder.value.id);
-    if (index !== -1) {
-      ordersList.splice(index, 1);
-    }
-    closeDetails();
-    showDeletePopup.value = false;
+const deleteOrder = (order) => {
+  const index = ordersList.findIndex(o => o.id === order.id);
+  if (index !== -1) {
+    ordersList.splice(index, 1);
   }
+  if (selectedOrder.value && selectedOrder.value.id === order.id) {
+    selectedOrder.value = null;
+    isDetailsOpen.value = false;
+  }
+  showDeletePopup.value = false;
 };
 </script>
 
@@ -43,33 +44,34 @@ const deleteOrder = () => {
 
     <div class="orders-container">
       <div class="order-table">
-        <OrdersList
-            :orders="ordersList"
-            :selectedOrder="selectedOrder"
-            :isDetailsOpen="isDetailsOpen"
-            @select-order="selectOrder"
-            @delete-order="(order) => { selectedOrder = order; showDeletePopup = true; }"
-        />
+        <transition name="slide-fade">
+          <OrdersList
+              :orders="ordersList"
+              :selectedOrder="selectedOrder"
+              :isDetailsOpen="isDetailsOpen"
+              @select-order="selectOrder"
+              @delete-order="(order) => { selectedOrder = order; showDeletePopup = true; }"
+          />
+        </transition>
 
-        <OrderDetails
-            v-if="selectedOrder"
-            :order="selectedOrder"
-            @close="closeDetails"
-            @delete-order="showDeletePopup = true"
-        />
+        <transition name="slide-fade">
+          <OrderDetails
+              v-if="selectedOrder"
+              :order="selectedOrder"
+              @close="closeDetails"
+              @delete-order="showDeletePopup = true"
+          />
+        </transition>
       </div>
-
-      <DeletePopup
-          v-if="showDeletePopup"
-          :orderName="selectedOrder?.name"
-          @cancel="showDeletePopup = false"
-          @confirm="deleteOrder"
-      />
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.orders-container {
+  overflow: auto;
+}
+
 .orders-header {
   display: flex;
   align-items: center;
@@ -105,5 +107,6 @@ const deleteOrder = () => {
 
 .order-table {
   display: flex;
+  gap: 10px;
 }
 </style>
