@@ -5,7 +5,7 @@ import Trash from "@/components/svg/Trash.vue";
 defineProps({
   itemName: String,
   itemImage: String,
-  itemSerial: String
+  itemSerial: [String, Number]
 });
 
 const emit = defineEmits(['cancel', 'confirm']);
