@@ -50,7 +50,6 @@ const isOpen = ref(false);
 aside {
   width: 250px;
   height: 91vh;
-  box-shadow: 15px 0 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
   background: #fff;
   position: static;
@@ -60,6 +59,7 @@ aside {
 
   @media (max-width: 768px) {
     position: fixed;
+    top: 100px;
     transform: translateX(-100%);
 
     &.open {
@@ -79,6 +79,7 @@ aside {
   border-radius: 8px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  z-index: 100000;
 
   @media (max-width: 768px) {
     display: block;
@@ -135,16 +136,6 @@ nav {
 
   li {
     margin-bottom: 20px;
-    list-style: none;
-
-    a {
-      text-decoration: none;
-      color: #333;
-
-      &:hover {
-        color: #007bff;
-      }
-    }
   }
 }
 </style>
