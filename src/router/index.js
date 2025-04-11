@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import OrdersView from '../views/OrdersView.vue';
-import AboutView from '../views/AboutView.vue';
+import ProductsView from '../views/ProductsView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,7 +13,7 @@ const router = createRouter({
     {
       path: '/group',
       name: 'group',
-      component: AboutView
+      component: ProductsView
     }
   ]
 })

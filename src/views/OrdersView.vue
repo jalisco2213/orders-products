@@ -2,7 +2,7 @@
 import {ref} from 'vue';
 import OrdersList from '@/components/Orders/OrderList.vue';
 import OrderDetails from '@/components/Orders/OrderDetail.vue';
-import DeletePopup from '@/components/Orders/DeletePopup.vue';
+import DeletePopup from '@/components/DeletePopup.vue';
 import {orders} from '../data/orders.js';
 
 const ordersList = orders();
