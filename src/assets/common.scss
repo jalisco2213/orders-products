@@ -26,7 +26,7 @@ a {
   padding: 15px 0;
   position: relative;
 
-  &:hover {
+  &.active {
     color: #1e2325;
 
     &::after {
@@ -43,7 +43,7 @@ a {
     bottom: 5px;
     left: 50%;
     background-color: #0ab900;
-    transition: all .5s ease;
+    transition: all .3s ease;
   }
 }
 

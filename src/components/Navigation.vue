@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import {ref} from 'vue';
 import Settings from '@/components/svg/Settings.vue';
 import BurgerMenu from '@/components/svg/BurgerMenu.vue';
 
@@ -9,7 +9,7 @@ const isOpen = ref(false);
 <template>
   <div>
     <div class="menu-toggle" @click="isOpen = !isOpen">
-      <BurgerMenu />
+      <BurgerMenu/>
     </div>
 
     <aside :class="{ open: isOpen }">
@@ -18,26 +18,26 @@ const isOpen = ref(false);
           <div class="aside-photo">
             <img src="/avatar.png" alt="">
             <div class="aside-photo_settings">
-              <Settings />
+              <Settings/>
             </div>
           </div>
         </div>
 
         <nav>
           <li>
-            <RouterLink to="/">Приход</RouterLink>
+            <RouterLink to="/" active-class="active">Приход</RouterLink>
           </li>
           <li>
-            <RouterLink to="/group">Группы</RouterLink>
+            <RouterLink to="/group" active-class="active">Группы</RouterLink>
           </li>
           <li>
-            <RouterLink to="#">Продукты</RouterLink>
+            <RouterLink to="/products" active-class="active">Продукты</RouterLink>
           </li>
           <li>
-            <RouterLink to="#">Пользователи</RouterLink>
+            <RouterLink to="/users" active-class="active">Пользователи</RouterLink>
           </li>
           <li>
-            <RouterLink to="#">Настройки</RouterLink>
+            <RouterLink to="/settings" active-class="active">Настройки</RouterLink>
           </li>
         </nav>
       </div>
