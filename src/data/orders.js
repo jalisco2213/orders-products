@@ -95,7 +95,7 @@ export const orders = () => [
     "description": "desc",
     "products": [
       {
-        "id": 1,
+        "id": 4,
         "serialNumber": 57475457,
         "isNew": 0,
         "photo": "monitor.png",
@@ -122,7 +122,7 @@ export const orders = () => [
         "date": "2017-06-29 12:09:33"
       },
       {
-        "id": 2,
+        "id": 5,
         "serialNumber": 723723723,
         "isNew": 1,
         "photo": "monitor.png",
@@ -149,7 +149,7 @@ export const orders = () => [
         "date": "2017-06-29 12:09:33"
       },
       {
-        "id": 3,
+        "id": 6,
         "serialNumber": 5235235,
         "isNew": 0,
         "photo": "monitor.png",
