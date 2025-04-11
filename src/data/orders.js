@@ -97,7 +97,7 @@ export const orders = () => [
       {
         "id": 1,
         "serialNumber": 57475457,
-        "isNew": 1,
+        "isNew": 0,
         "photo": "monitor.png",
         "title": "Samsung Odyssey G50D (LS27DG502EIXCI)",
         "type": "Monitors",
@@ -151,7 +151,7 @@ export const orders = () => [
       {
         "id": 3,
         "serialNumber": 5235235,
-        "isNew": 1,
+        "isNew": 0,
         "photo": "monitor.png",
         "title": "Samsung Odyssey G50D (LS27DG502EIXCI)",
         "type": "Monitors",

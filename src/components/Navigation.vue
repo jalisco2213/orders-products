@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import Settings from '../components/svg/Settings.vue';
+import Settings from '@/components/svg/Settings.vue';
 import BurgerMenu from '@/components/svg/BurgerMenu.vue';
 
 const isOpen = ref(false);
@@ -55,7 +55,6 @@ aside {
   position: static;
   top: 0;
   left: 0;
-  z-index: 10;
 
   @media (max-width: 768px) {
     position: fixed;

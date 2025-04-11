@@ -2,7 +2,7 @@
 import {RouterView} from 'vue-router';
 import Logo from './components/svg/Logo.vue';
 import TopMenu from './components/TopMenu.vue';
-import Navigation from '@/Layouts/Navigation.vue';
+import Navigation from './components/Navigation.vue';
 
 </script>
 
@@ -40,7 +40,7 @@ header {
   background-color: #fff;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 1;
 }
 
 .header {
