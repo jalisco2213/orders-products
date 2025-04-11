@@ -42,191 +42,109 @@ function handleDelete(order, event) {
 </script>
 
 <template>
-  <div class="orders-list">
-    <table class="orders-table">
-      <tbody>
-      <tr
-          v-for="order in orders"
-          :key="order.id"
-          :class="{ 'active': selectedOrder?.id === order.id }"
-      >
-        <td v-if="!isDetailsOpen" class="name-cell">
-          <div class="name">{{ order.name }}</div>
-        </td>
+  <div class="orders-wrapper">
+    <div class="orders-main">
+      <div class="orders-item"
+           v-for="order in orders"
+           :key="order.id"
+           :class="{ 'active': selectedOrder?.id === order.id }">
 
-        <td @click="emit('select-order', order)" class="list-cell">
-          <div class="list">
-            <List/>
+        <div v-if="!isDetailsOpen" class="orders-item_name">{{ order.name }}</div>
+
+        <div class="orders-item_count">
+          <List @click="emit('select-order', order)"/>
+
+          <div class="orders-item_count__length">
+            <p style="font-weight: 500">
+              {{ order.products.length }}
+            </p>
+            <span style="font-weight: 100">Продукта</span>
           </div>
-        </td>
+        </div>
 
-        <td class="product-cell">
-          <p class="product-count">
-            {{ order.products.length }}
-          </p>
-          <span class="product-label">Продукта</span>
-        </td>
+        <div class="orders-item_date">
+          <div>
+            <div style="font-weight: 100" class="time">{{ formatTime(order.date) }}</div>
+            <div class="date">{{ formatDate(order.date) }}</div>
+          </div>
+        </div>
 
-        <td class="date-cell">
-          <div class="time">{{ formatTime(order.date) }}</div>
-          <div class="date">{{ formatDate(order.date) }}</div>
-          <ArrowRight class="arrow-right" v-if="selectedOrder?.id === order.id"/>
-        </td>
-
-        <td v-if="!isDetailsOpen" class="action-cell">
+        <div v-if="!isDetailsOpen" class="orders-item_trash">
           <Trash style="cursor: pointer"/>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+        </div>
+
+        <div class="orders-item_arrow">
+          <ArrowRight class="arrow-right" v-if="selectedOrder?.id === order.id"/>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.orders-table {
+.orders-wrapper {
   width: 100%;
-  border-collapse: collapse;
+  display: grid;
+  grid-auto-rows: 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  max-width: 1440px;
 }
 
-.orders-list {
+.orders-main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 1440px;
+  padding-bottom: 21px;
   width: 100%;
-  max-width: 100%;
-  overflow-x: auto;
 }
 
-.orders-table {
-  cursor: default;
-  color: #4f4f4f;
-  min-width: 300px;
-  width: 100%;
+.orders-item {
+  position: relative;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #cfd8dc;
+  border-radius: 6px;
+  cursor: pointer;
+  display: grid;
+  gap: 10px;
+  grid-auto-rows: 1fr;
+  grid-template-columns: minmax(167px, 425px) 131px 112px minmax(40px, 122px) 26px;
+  grid-template-rows: 1fr;
+  justify-content: space-between;
+  padding: 10px 23px 10px 36px;
+  transition: box-shadow .25s ease;
 
-  td {
-    background: #fff;
-    padding: 8px 12px;
+  .orders-item_name {
+    display: block;
+    font-size: 16px;
     position: relative;
+    text-align: left;
+    text-decoration-color: #546e7a;
+    text-decoration: underline;
   }
 
-  .time {
-    font-size: 12px;
-    font-weight: 100;
-    white-space: nowrap;
-  }
-
-  .date {
-    white-space: nowrap;
-  }
-
-  .list {
+  .orders-item_count {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 1px solid #ccc;
-    position: relative;
-    cursor: pointer;
-    transition: .5s ease-in-out;
-
-    &:hover {
-      background: #ddd;
-      transition: .5s ease-in-out;
-    }
+    gap: 40px;
   }
 
-  .arrow-right {
+  .orders-item_date {
+    gap: 10px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 13px;
+  }
+
+  .orders-item_arrow {
+    display: block;
     position: absolute;
     right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #4f4f4f;
-  }
-
-  .product-count {
-    font-weight: 500;
-    margin: 0;
-  }
-
-  .product-label {
-    font-weight: 100;
-    font-size: 0.8em;
-  }
-
-  tr {
-    border-bottom: 1px solid #eee;
-    transition: background-color 0.2s;
-
-    &:hover {
-      background-color: #f5f5f5;
-    }
-
-    &.active {
-      background-color: #f3f3f3;
-    }
-  }
-
-  .name {
-    text-decoration: underline;
-    font-size: 16px;
-    white-space: nowrap;
-    overflow: auto;
-    text-overflow: ellipsis;
   }
 }
 
-@media (max-width: 768px) {
-  .orders-table {
-    td {
-      padding: 6px 8px;
-    }
-
-    .name {
-      font-size: 14px;
-      max-width: 100px;
-    }
-
-    .list {
-      width: 28px;
-      height: 28px;
-    }
-
-    .product-count {
-      font-size: 14px;
-    }
-
-    .product-label {
-      font-size: 0.7em;
-    }
-
-    .time, .date {
-      font-size: 11px;
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .orders-table {
-    td {
-      padding: 4px 6px;
-    }
-
-    .name {
-      font-size: 12px;
-      max-width: 80px;
-    }
-
-    .list {
-      width: 24px;
-      height: 24px;
-    }
-
-    .product-cell {
-      display: none; /* Скрываем количество продуктов на очень маленьких экранах */
-    }
-
-    .time, .date {
-      font-size: 10px;
-    }
-  }
-}
 </style>
