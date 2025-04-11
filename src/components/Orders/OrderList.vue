@@ -52,7 +52,7 @@ function handleDelete(order, event) {
         <div v-if="!isDetailsOpen" class="orders-item_name">{{ order.name }}</div>
 
         <div class="orders-item_count">
-          <List @click="emit('select-order', order)"/>
+          <List style="border-radius: 50%; padding: 5px; border: 1px solid #5d5d5d" @click="emit('select-order', order)"/>
 
           <div class="orders-item_count__length">
             <p style="font-weight: 500">
@@ -128,7 +128,7 @@ function handleDelete(order, event) {
   .orders-item_count {
     display: flex;
     align-items: center;
-    gap: 40px;
+    justify-content: space-between;
   }
 
   .orders-item_date {
