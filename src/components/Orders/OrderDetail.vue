@@ -90,18 +90,17 @@ const confirmDelete = () => {
 }
 
 .close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
   border: none;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: #fff;
+  border-radius: 50%;
+  padding: 0 6px 2px;
   font-size: 1.5em;
   cursor: pointer;
   color: #666;
-}
-
-.close-btn:hover {
-  color: #333;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
 }
 
 .line {
@@ -162,7 +161,6 @@ const confirmDelete = () => {
   opacity: 0.7;
 }
 
-/* Медиазапросы для адаптивности */
 @media (max-width: 768px) {
   .order-details {
     padding: 15px;
