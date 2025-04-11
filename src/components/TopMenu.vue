@@ -48,6 +48,21 @@ onMounted(() => {
   font-weight: 500;
   user-select: none;
   cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    align-items: flex-start;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
 }
 
 .day {
@@ -59,6 +74,18 @@ onMounted(() => {
 .time {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  word-break: break-word;
+
+  svg {
+    width: 1em;
+    height: 1em;
+
+    @media (max-width: 480px) {
+      width: 0.8em;
+      height: 0.8em;
+    }
+  }
 }
 </style>
