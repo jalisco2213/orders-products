@@ -1,5 +1,5 @@
 <script setup>
-import { RouterView } from 'vue-router';
+import {RouterView} from 'vue-router';
 import Logo from './components/svg/Logo.vue';
 import TopMenu from './components/TopMenu.vue';
 import Navigation from '@/Layouts/Navigation.vue';
@@ -11,22 +11,24 @@ import Navigation from '@/Layouts/Navigation.vue';
     <div class="header">
       <div class="header-left">
         <div class="header-logo">
-          <Logo />
+          <a href="/">
+            <Logo/>
+          </a>
         </div>
 
         <input type="text" placeholder="Поиск">
       </div>
 
-      <TopMenu />
+      <TopMenu/>
     </div>
   </header>
 
   <div class="content-wrapper">
-    <Navigation />
+    <Navigation/>
 
     <main class="main">
       <Transition name="router-view" mode="out-in">
-        <RouterView />
+        <RouterView/>
       </Transition>
     </main>
   </div>
@@ -51,16 +53,18 @@ header {
   padding: 20px;
 
   &-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
 
-    svg {
-      width: 40px;
-      height: auto;
+      svg {
+        width: 40px;
+        height: auto;
 
-      @media (max-width: 480px) {
-        width: 30px;
+        @media (max-width: 480px) {
+          width: 30px;
+        }
       }
     }
   }
