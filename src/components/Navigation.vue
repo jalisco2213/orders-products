@@ -55,6 +55,7 @@ aside {
   position: static;
   top: 0;
   left: 0;
+  z-index: 1;
 
   @media (max-width: 768px) {
     position: fixed;
@@ -72,7 +73,6 @@ aside {
   position: fixed;
   top: 20px;
   left: 20px;
-  z-index: 15;
   background: #fff;
   padding: 10px;
   border-radius: 8px;
