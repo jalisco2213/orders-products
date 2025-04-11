@@ -7,7 +7,7 @@ export const orders = () => [
     "products": [
       {
         "id": 1,
-        "serialNumber": 1234,
+        "serialNumber": 14245,
         "isNew": 1,
         "photo": "monitor.png",
         "title": "Samsung Odyssey G50D (LS27DG502EIXCI)",
@@ -34,7 +34,7 @@ export const orders = () => [
       },
       {
         "id": 2,
-        "serialNumber": 1234,
+        "serialNumber": 6216126,
         "isNew": 1,
         "photo": "monitor.png",
         "title": "Samsung Odyssey G50D (LS27DG502EIXCI)",
@@ -61,7 +61,7 @@ export const orders = () => [
       },
       {
         "id": 3,
-        "serialNumber": 1234,
+        "serialNumber": 62161288,
         "isNew": 1,
         "photo": "monitor.png",
         "title": "Samsung Odyssey G50D (LS27DG502EIXCI)",
@@ -96,7 +96,7 @@ export const orders = () => [
     "products": [
       {
         "id": 1,
-        "serialNumber": 1234,
+        "serialNumber": 57475457,
         "isNew": 1,
         "photo": "monitor.png",
         "title": "Samsung Odyssey G50D (LS27DG502EIXCI)",
@@ -123,7 +123,7 @@ export const orders = () => [
       },
       {
         "id": 2,
-        "serialNumber": 1234,
+        "serialNumber": 723723723,
         "isNew": 1,
         "photo": "monitor.png",
         "title": "Samsung Odyssey G50D (LS27DG502EIXCI)",
@@ -150,7 +150,7 @@ export const orders = () => [
       },
       {
         "id": 3,
-        "serialNumber": 1234,
+        "serialNumber": 5235235,
         "isNew": 1,
         "photo": "monitor.png",
         "title": "Samsung Odyssey G50D (LS27DG502EIXCI)",
